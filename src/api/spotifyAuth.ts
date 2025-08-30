@@ -10,6 +10,8 @@ export async function startSpotifyLogin() {
   const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID as string | undefined
   const redirectUri = import.meta.env.VITE_SPOTIFY_REDIRECT_URI as string | undefined
 
+  console.log('[oauth]', { clientId, redirectUri, len: redirectUri?.length })
+
   if (!clientId || !redirectUri) {
     console.error('Missing VITE_SPOTIFY_CLIENT_ID or VITE_SPOTIFY_REDIRECT_URI')
     alert('Spotify login is not configured. Check your .env values.')
