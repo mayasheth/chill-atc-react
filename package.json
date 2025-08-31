@@ -2,6 +2,7 @@
   "name": "chill-atc-react",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev:app": "vite",
     "dev:api": "vercel dev",

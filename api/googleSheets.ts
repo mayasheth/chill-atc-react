@@ -1,5 +1,6 @@
 // /api/google-sheets.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node'
+export const config = { runtime: 'nodejs20.x' }
 import { google } from 'googleapis'
 
 const READ_SCOPES  = ['https://www.googleapis.com/auth/spreadsheets.readonly']
