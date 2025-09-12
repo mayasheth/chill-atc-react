@@ -1,16 +1,13 @@
 
-const KPH_PER_MPH = 1.609344
+export const cToF = (c: number) => (c * 9) / 5 + 32
+export const mmToIn = (mm: number) => mm / 25.4
+export const kphToMph = (k: number) => k * 0.621371
+export const mToFt = (m: number) => m * 3.28084
 
-// convert Celsius to Farenheit
-export function celsiusToFarenheit(c: number | null): number | null {
-  if (c) return c * 9 / 5 + 32
-  return null
-}
-
-// convert km/h to mph
-export function khmToMph(kph: number | null): number | null {
-  if (kph) return kph /  KPH_PER_MPH
-  return null
+export function degToCardinal(deg: number) {
+  const dirs = ['N','NNE','NE','ENE','E','ESE','SE','SSE',
+                'S','SSW','SW','WSW','W','WNW','NW','NNW']
+  return dirs[Math.round(deg / 22.5) % 16]
 }
 
 

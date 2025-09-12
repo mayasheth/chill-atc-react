@@ -17,8 +17,9 @@ export default defineConfig({
         svgo: true, // cleans SVGs
         svgoConfig: {
           plugins: [
-            { name: 'removeDimensions', active: true },
-            { name: 'removeViewBox', active: false },
+            { "name": "removeViewBox", "active": false },
+            { "name": "removeDimensions", "active": true },
+            { "name": "convertColors", "params": { "currentColor": true } }
           ],
         },
       },

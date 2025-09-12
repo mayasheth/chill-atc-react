@@ -1,0 +1,6 @@
+{
+  "YWG": { "nameCommon": "Winnipeg International Airport", "nameFull": "Winnipeg James Armstrong Richardson International Airport", "code": "YWG", "latitude": 49.91, "longitude": -97.24 },
+  "YOW": { "nameCommon": "Ottawa International Airport",   "nameFull": "Ottawa/Macdonald-Cartier International Airport", "code": "YOW", "latitude": 45.32, "longitude": -75.67 },
+  "ORD": { "nameCommon": "O'Hare International Airport",   "nameFull": "Chicago O'Hare International Airport", "code": "ORD", "latitude": 41.98, "longitude": -87.90 },
+  "SFO": { "nameCommon": "San Francisco International Airport",   "nameFull": "San Francisco International Airport", "code": "SFO", "latitude": 37.61, "longitude": -122.38 }
+}

@@ -13,7 +13,7 @@ import {
   hasSessionStarted,
   markSessionStarted,
   clearSessionStarted,
-} from '@/lib/trackSessions'
+} from '@/lib/airtime/trackSessions'
 
 //  Helper to get total listening times 
 async function fetchTotals(userId: string) {

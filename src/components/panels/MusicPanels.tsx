@@ -2,14 +2,14 @@ import { useState }    from 'react'
 import { ActionButton, LoginButton, Selector, Slider } from '@/components/ui'
 import { ControlRow, Field } from '@/components/layouts'
 
-import { SpotifyIcon, MusicNoteIcon, VolumeIcon, ReplayIcon, PlayIcon, PauseIcon, NextIcon, PreviousIcon } from '@/assets/icons'
+import { SpotifyIcon, MusicNoteIcon, VolumeIcon, ReplayIcon, PlayIcon, PauseIcon, NextIcon, PreviousIcon } from '@/assets/icons/audio'
 
 import { startSpotifyLogin } from '@/api/spotifyAuth'
 import { formatTime } from '@/lib/format'
 import { useAuth } from '@/store/auth'
 import { usePlayback } from '@/store/playback'
 import { useNowPlayingProgress } from '@/hooks/useNowPlayingProgress'
-import { spotifyPlaylists } from '@/config/spotifyPlaylists'
+import { spotifyPlaylists } from '@/lib/spotify/spotifyPlaylists'
 
 export function LoginPanel() {
   const { isLoggedIn, userEmail } = useAuth()
@@ -141,7 +141,7 @@ export function NowPlayingPanel() {
       "transition-all duration-1000 ease-in-out overflow-hidden",
       // visible state
       musicPlaying
-        ? "opacity-100 translate-y-0 max-h-[480px] pointer-events-auto mt-12"
+        ? "opacity-100 translate-y-0 sm:max-h-[480px] pointer-events-auto mt-12"
         // hidden state
         : "opacity-0 translate-y-4 max-h-0 pointer-events-none",
       // layout

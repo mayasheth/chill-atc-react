@@ -1,0 +1,101 @@
+code	label	label_short	icon	night_icon
+0	Cloud development not observed or not observable	Clear	wi-day-sunny	wi-night-clear
+1	Clouds generally dissolving or becoming less developed	Mostly clear	wi-day-sunny-overcast	wi-night-alt-cloudy-high
+2	State of sky on the whole unchanged	Partly cloudy	wi-day-cloudy	wi-night-alt-cloudy
+3	Clouds generally forming or developing	Overcast	wi-cloudy	
+4	Visibility reduced by smoke, e.g. veldt or forest fires, industrial smoke or volcanic ashes	Smoky	wi-dust	
+5	Haze	Hazy	wi-dust	
+6	Widespread dust in suspension in the air, not raised by wind at or near the station	Dusty	wi-dust	
+7	Dust or sand raised by wind at or near the station, but no well developed dust whirl(s)	Dusty	wi-dust	
+8	Well developed dust whirl(s) or sand whirl(s) seen at or near the station	Dust whirls	wi-dust	
+9	Duststorm or sandstorm within sight at the time of observation	Dust storm	wi-sandstorm	
+10	Mist	Misty	wi-fog	
+11	Patches of shallow fog or ice fog at the station, not deeper than about 2 metres	Patchy fog	wi-fog	
+12	More or less continuous shallow fog or ice fog at the station	Fog	wi-fog	
+13	Lightning visible, no thunder heard	Lightning	wi-day-lightning	wi-night-alt-lightning
+14	Precipitation within sight, not reaching the ground or the surface of the sea	Distant rain	wi-sprinkle	
+15	Precipitation within sight, reaching the ground, but distant (more than 5 km)	Distant rain	wi-sprinkle	
+16	Precipitation within sight, reaching the ground, near to but not at the station	Nearby rain	wi-sprinkle	
+17	Thunderstorm, but no precipitation at the time of observation	Dry thunderstorm	wi-day-lightning	wi-night-alt-lightning
+18	Squalls at or within sight of the station	Squalls	wi-strong-wind	
+19	Funnel cloud(s)	Funnel cloud	wi-tornado	
+20	Drizzle (not freezing) or snow grains (preceding hour)	Recent drizzle	wi-showers	
+21	Rain (not freezing) (preceding hour)	Recent rain	wi-rain	
+22	Snow (preceding hour)	Recent snow	wi-snowflake-cold	
+23	Rain and snow or ice pellets (preceding hour)	Recent mixed precip	wi-rain-mix	
+24	Freezing drizzle or freezing rain (preceding hour)	Recent freezing rain	wi-sleet	
+25	Shower(s) of rain (preceding hour)	Recent showers	wi-rain	
+26	Shower(s) of snow, or of rain and snow (preceding hour)	Recent snow showers	wi-snowflake-cold	
+27	Shower(s) of hail (preceding hour)	Recent hail	wi-hail	
+28	Fog or ice fog (preceding hour)	Recent fog	wi-fog	
+29	Thunderstorm (with or without precipitation) (preceding hour)	Recent thunderstorm	wi-thunderstorm	
+30	Slight or moderate duststorm or sandstorm - has decreased during the preceding hour	Dust storm (weakening)	wi-sandstorm	
+31	Slight or moderate duststorm or sandstorm - no appreciable change	Dust storm	wi-sandstorm	
+32	Slight or moderate duststorm or sandstorm - has begun or increased	Dust storm (strengthening)	wi-sandstorm	
+33	Severe duststorm or sandstorm - has decreased during the preceding hour	Severe dust storm (weakening)	wi-sandstorm	
+34	Severe duststorm or sandstorm - no appreciable change	Severe dust storm	wi-sandstorm	
+35	Severe duststorm or sandstorm - has begun or increased	Severe dust storm (strengthening)	wi-sandstorm	
+36	Slight or moderate blowing snow - generally low (below eye level)	Blowing snow	wi-snowflake-cold	
+37	Heavy drifting snow - generally low (below eye level)	Heavy drifting snow	wi-snowflake-cold	
+38	Slight or moderate blowing snow - generally high (above eye level)	High blowing snow	wi-snowflake-cold	
+39	Heavy drifting snow - generally high (above eye level)	Heavy high drifting snow	wi-snowflake-cold	
+40	Fog or ice fog at a distance, extending to a level above that of the observer	Distant fog	wi-fog	
+41	Fog or ice fog in patches	Patchy fog	wi-fog	
+42	Fog or ice fog, sky visible - has become thinner during the preceding hour	Thinning fog	wi-fog	
+43	Fog or ice fog, sky invisible - has become thinner during the preceding hour	Dense thinning fog	wi-fog	
+44	Fog or ice fog, sky visible - no appreciable change during the preceding hour	Fog	wi-fog	
+45	Fog or ice fog, sky invisible - no appreciable change during the preceding hour	Dense fog	wi-fog	
+46	Fog or ice fog, sky visible - has begun or become thicker during the preceding hour	Thickening fog	wi-fog	
+47	Fog or ice fog, sky invisible - has begun or become thicker during the preceding hour	Dense thickening fog	wi-fog	
+48	Fog, depositing rime, sky visible	Freezing fog	wi-fog	
+49	Fog, depositing rime, sky invisible	Dense freezing fog	wi-fog	
+50	Drizzle, not freezing, intermittent - slight	Light drizzle	wi-showers	
+51	Drizzle, not freezing, continuous - slight	Light drizzle	wi-showers	
+52	Drizzle, not freezing, intermittent - moderate	Drizzle	wi-showers	
+53	Drizzle, not freezing, continuous - moderate	Drizzle	wi-showers	
+54	Drizzle, not freezing, intermittent - heavy (dense)	Heavy drizzle	wi-showers	
+55	Drizzle, not freezing, continuous - heavy (dense)	Heavy drizzle	wi-showers	
+56	Drizzle, freezing, slight	Freezing drizzle	wi-sleet	
+57	Drizzle, freezing, moderate or heavy (dense)	Heavy freezing drizzle	wi-sleet	
+58	Drizzle and rain, slight	Light rain/drizzle	wi-rain	
+59	Drizzle and rain, moderate or heavy	Rain/drizzle	wi-rain	
+60	Rain, not freezing, intermittent - slight	Light rain	wi-rain	
+61	Rain, not freezing, continuous - slight	Light rain	wi-rain	
+62	Rain, not freezing, intermittent - moderate	Rain	wi-rain	
+63	Rain, not freezing, continuous - moderate	Rain	wi-rain	
+64	Rain, not freezing, intermittent - heavy	Heavy rain	wi-rain	
+65	Rain, not freezing, continuous - heavy	Heavy rain	wi-rain	
+66	Rain, freezing, slight	Freezing rain	wi-sleet	
+67	Rain, freezing, moderate or heavy (dense)	Heavy freezing rain	wi-sleet	
+68	Rain or drizzle and snow, slight	Light rain/snow mix	wi-rain-mix	
+69	Rain or drizzle and snow, moderate or heavy	Rain/snow mix	wi-rain-mix	
+70	Intermittent fall of snowflakes - slight	Light snow	wi-snowflake-cold	
+71	Continuous fall of snowflakes - slight	Light snow	wi-snowflake-cold	
+72	Intermittent fall of snowflakes - moderate	Snow	wi-snowflake-cold	
+73	Continuous fall of snowflakes - moderate	Snow	wi-snowflake-cold	
+74	Intermittent fall of snowflakes - heavy	Heavy snow	wi-snowflake-cold	
+75	Continuous fall of snowflakes - heavy	Heavy snow	wi-snowflake-cold	
+76	Diamond dust (with or without fog)	Diamond dust	wi-snowflake-cold	
+77	Snow grains (with or without fog)	Snow grains	wi-snowflake-cold	
+78	Isolated star-like snow crystals (with or without fog)	Snow crystals	wi-snowflake-cold	
+79	Ice pellets	Ice pellets	wi-snowflake-cold	
+80	Rain shower(s), slight	Light showers	wi-rain	
+81	Rain shower(s), moderate or heavy	Showers	wi-rain	
+82	Rain shower(s), violent	Heavy showers	wi-rain	
+83	Shower(s) of rain and snow mixed, slight	Light mixed showers	wi-rain	
+84	Shower(s) of rain and snow mixed, moderate or heavy	Mixed showers	wi-rain	
+85	Snow shower(s), slight	Light snow showers	wi-snowflake-cold	
+86	Snow shower(s), moderate or heavy	Snow showers	wi-snowflake-cold	
+87	Shower(s) of snow pellets or small hail, slight	Light hail showers	wi-hail	
+88	Shower(s) of snow pellets or small hail, moderate or heavy	Hail showers	wi-hail	
+89	Shower(s) of hail, slight	Light hail	wi-hail	
+90	Shower(s) of hail, moderate or heavy	Heavy hail	wi-hail	
+91	Rain, slight - thunderstorm during preceding hour	Thunder + light rain	wi-thunderstorm	
+92	Rain, moderate or heavy - thunderstorm during preceding hour	Thunder + rain	wi-thunderstorm	
+93	Snow, slight - thunderstorm during preceding hour	Thunder + light snow	wi-thunderstorm	
+94	Snow, moderate or heavy - thunderstorm during preceding hour	Thunder + snow	wi-thunderstorm	
+95	Thunderstorm, slight or moderate, without hail	Thunderstorm	wi-thunderstorm	
+96	Thunderstorm, slight or moderate, with hail	Thunder + hail	wi-thunderstorm	
+97	Thunderstorm, heavy, without hail	Severe thunderstorm	wi-thunderstorm	
+98	Thunderstorm combined with duststorm or sandstorm	Thunder + dust storm	wi-thunderstorm	
+99	Thunderstorm, heavy, with hail	Severe thunder + hail	wi-thunderstorm	

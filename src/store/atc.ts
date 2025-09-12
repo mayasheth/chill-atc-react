@@ -1,7 +1,7 @@
 // src/store/atc.ts
 import { create } from "zustand"
-import type { AtcStreamId } from '@/config/atcStreams'
-import { ATC_STREAMS } from '@/config/atcStreams'
+import type { AtcStreamId } from '@/lib/atc/atcStreams'
+import { ATC_STREAMS } from '@/lib/atc/atcStreams'
 
 const DEBOUNCE_MS = 200
 const SLIDER_DEBOUNCE_MS = 120

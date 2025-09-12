@@ -2,9 +2,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from '@/pages/Home'
 import SpotifyCallback from '@/pages/SpotifyCallback' 
-import { SessionTracker } from '@/lib/SessionTracker'
-import { SpotifyPlayerProvider } from '@/lib/SpotifyPlayerProvider'
-import { AtcAudioProvider } from '@/lib/AtcAudioProvider'
+import { SessionTracker } from '@/lib/airtime/SessionTracker'
+import { SpotifyPlayerProvider } from '@/lib/spotify/SpotifyPlayerProvider'
+import { AtcAudioProvider } from '@/lib/atc/AtcAudioProvider'
 
 /**
  * App = (Provider → Router → Pages)
