@@ -305,12 +305,13 @@ export const WeatherMiniCard = memo(function WeatherMiniCard() {
   )
 
   const TransitionClasses = [
-    'transition-all duration-1000 ease-in-out overflow-hidden',
+    'overflow-hidden transition-all duration-1000 ease-in-out',
     atcPlaying
-      ? 'opacity-100 translate-y-0 sm:max-h-[520px] pointer-events-auto mt-12'
+      ? 'opacity-100 translate-y-0 max-h-[520px] pointer-events-auto mt-12'
       : 'opacity-0 translate-y-4 max-h-0 pointer-events-none',
     'flex flex-col items-center'
   ].join(' ')
+
 
   if (!airportCode) return null
   // className="mt-4 grid w-full grid-cols-1 items-center justify-items-center gap-0 sm:mt-3 sm:grid-cols-5"

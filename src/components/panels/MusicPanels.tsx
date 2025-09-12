@@ -136,12 +136,13 @@ export function NowPlayingPanel() {
   const artistLine = track?.artists?.join(", ") ?? ""
   const timerStr = `${formatTime(uiPos)} / ${formatTime(duration)}`
 
+
   const TransitionClasses = (
     [
-      "transition-all duration-1000 ease-in-out overflow-hidden",
+      "overflow-hidden transition-all duration-1000 ease-in-out",
       // visible state
       musicPlaying
-        ? "opacity-100 translate-y-0 sm:max-h-[480px] pointer-events-auto mt-12"
+        ? "opacity-100 translate-y-0 max-h-[480px] pointer-events-auto mt-12"
         // hidden state
         : "opacity-0 translate-y-4 max-h-0 pointer-events-none",
       // layout
