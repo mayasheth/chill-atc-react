@@ -2,7 +2,7 @@ import { Card, PanelHeader } from '@/components/layouts'
 import { LoginPanel, PlaybackPanel, NowPlayingPanel } from '@/components/panels/MusicPanels'
 import { AtcStreamingPanel } from '@/components/panels/AtcPanels'
 import { WeatherMiniCard } from '@/components/panels/WeatherPanels'
-import { StatsPanel } from '@/components/panels/AirtimePanels'
+import { WaveformPanel, StatsPanel } from '@/components/panels/AirtimePanels'
 
 
 export default function Home() {
@@ -25,6 +25,7 @@ export default function Home() {
 
       <Card className="mt-6">
         <PanelHeader title="airtime" />
+        <WaveformPanel />
         <StatsPanel />
       </Card>
     </div>

@@ -25,9 +25,9 @@ function AtcLabel({
         <span className="opt-code font-header text-base font-bold text-[var(--code)]">
           {code.toLowerCase()}
         </span>
-        <span className="opt-city font-base text-base font-light text-[var(--city)]">
+        {<span className="opt-city font-base text-base font-light text-[var(--city)]">
           {city.toLowerCase()}
-        </span>
+        </span>}
       </span>
 
       {ch && (
