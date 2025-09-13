@@ -4,11 +4,10 @@ import { useMemo } from 'react'
 import { ActionButton, Selector, Slider, type Option } from '@/components/ui'
 import { ControlRow, Field } from '@/components/layouts'
 
-import { VolumeIcon, PlayIcon, PauseIcon, StopIcon, RadarIcon} from '@/assets/icons'
+import { VolumeIcon, PlayIcon, PauseIcon, StopIcon, RadarIcon} from '@/assets/icons/audio'
 
-import { formatChannels } from '@/lib/format'
 import { useAtc } from '@/store/atc'
-import { type AtcStreamId, type Channel, RESOLVED_ATC_STREAMS } from '@/config/atcStreams'
+import { type AtcStreamId, type Channel, RESOLVED_ATC_STREAMS, formatChannels } from '@/lib/atc/atcStreams'
 
 function AtcLabel({
   code,
@@ -110,7 +109,7 @@ export function StreamingControls() {
   const ControlButtons = (
     <div className="inline-flex items-center gap-1/4">
       <ActionButton
-        icon={<RadarIcon className="w-9 h-9 animate-spin-ccw-alt" aria-hidden="true" />}
+        icon={<RadarIcon className="w-9 h-9 opacity-0" aria-hidden="true" />}
         variant="icon"
         onClick={stop}
         disabled={true}
@@ -136,7 +135,7 @@ export function StreamingControls() {
         disabled={isStopped}
       />
       <ActionButton
-        icon={<RadarIcon className="w-9 h-9 animate-spin-cw-alt" aria-hidden="true" />}
+        icon={<RadarIcon className="w-9 h-9 opacity-0" aria-hidden="true" />}
         variant="icon"
         onClick={stop}
         disabled={true}
@@ -194,30 +193,3 @@ export function AtcStreamingPanel() {
     </section>
   )
 }
-
-// export const streamingFromPanel() {
-
-//   return (
-
-//   )
-
-// }
-
-//  const StreamingMessage = (
-//     <div className="flex flex-col gap-2">
-//       {selectedStreamUrl ? (
-//         <>
-//           <p className="text-content-0 text-lg font-semibold"> {playing ? "streaming from: " : "ready to stream: "} </p>
-//           <p>
-//             {atcStream
-//               ? `${atcStream.city} (${atcStream.airportCode}${
-//                   atcStream.channels ? ` — ${atcStream.channels}` : ""
-//                 })`
-//               : selectedStreamUrl}
-//           </p>
-//         </>
-//       ) : (
-//         <span className="text-content-3">Select a stream to begin.</span>
-//       )}
-//     </div>
-//   )

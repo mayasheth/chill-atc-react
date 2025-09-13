@@ -1,5 +1,5 @@
 import React from 'react'
-import { SpotifyIcon } from '@/assets/icons'
+import { SpotifyIcon } from '@/assets/icons/audio'
 type Variant = 'spotify' | 'icon'
 
 type ActionButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {

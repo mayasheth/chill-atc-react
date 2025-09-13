@@ -1,6 +1,6 @@
 // src/hooks/useWaveform.ts
 import { useEffect, useRef } from "react";
-import { clamp01, generateWaveParams, getCssVar, type WaveParams } from "@/lib/waveform";
+import { clamp01, generateWaveParams, getCssVar, type WaveParams } from "@/lib/airtime/waveform";
 
 function useLatest<T>(value: T) {
   const r = useRef(value);

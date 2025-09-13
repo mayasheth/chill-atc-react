@@ -1,6 +1,7 @@
 import { Card, PanelHeader } from '@/components/layouts'
 import { LoginPanel, PlaybackPanel, NowPlayingPanel } from '@/components/panels/MusicPanels'
 import { AtcStreamingPanel } from '@/components/panels/AtcPanels'
+import { WeatherMiniCard } from '@/components/panels/WeatherPanels'
 import { StatsPanel } from '@/components/panels/AirtimePanels'
 
 
@@ -19,6 +20,7 @@ export default function Home() {
       <Card className="mt-6">
         <PanelHeader title="atc" />
         <AtcStreamingPanel />
+        <WeatherMiniCard />
       </Card>
 
       <Card className="mt-6">
