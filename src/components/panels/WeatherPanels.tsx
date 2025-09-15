@@ -307,7 +307,7 @@ export const WeatherMiniCard = memo(function WeatherMiniCard() {
   const TransitionClasses = [
     'overflow-hidden transition-all duration-1000 ease-in-out',
     atcPlaying
-      ? 'opacity-100 translate-y-0 max-h-[520px] pointer-events-auto mt-12'
+      ? 'opacity-100 translate-y-0 max-h-[640px] pointer-events-auto mt-12'
       : 'opacity-0 translate-y-4 max-h-0 pointer-events-none',
     'flex flex-col items-center'
   ].join(' ')

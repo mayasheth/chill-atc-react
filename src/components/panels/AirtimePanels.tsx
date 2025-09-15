@@ -93,7 +93,7 @@ export function StatsPanel() {
   }, [])
 
   return (
-    <div className="flex flex-col gap-0 sm:flex-row sm:gap-16 sm:flex-grow mt-0">
+    <div className="flex flex-col gap-4 sm:flex-row sm:gap-16 sm:flex-grow mt-0">
       <StatField value={elapsedDur} unit={elapsedUnits} label="current session" active={sessionActive} />
       <StatField value={userDur} unit={userUnits} label="your total" />
       <StatField value={globalDur} unit={globalUnits} label="global total" />
