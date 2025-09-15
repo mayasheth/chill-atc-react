@@ -192,130 +192,131 @@ export function Selector({
   ].join(' ')
 
   return (
-    <label htmlFor={id} className="flex flex-col gap-2">
-      {label && <p className="text-center text-sm font-base text-content-2">{label}</p>}
+    <div className="flex flex-col gap-2">
+      {label && (
+        <label htmlFor={id} className="text-center text-sm font-base text-content-2">
+          {label}
+        </label>
+      )}
 
-      <div
-        ref={selectRef}
-        className={cx('selectize-wrapper relative z-10 overflow-visible w-full', classes?.root)}
-      >
-        <div className={cx('selectize-control single flex justify-center w-full', classes?.control)}>
-          {/* Button */}
-          <button
-            ref={buttonRef}
-            type="button"
-            id={id}
-            className={cx(
-              baseButton,
-              'w-full relative',
-              // consume current vars
-              merged.idle, 'bg-[var(--opt-bg)] text-[var(--opt-fg)]',
-              // when CLOSED, hovering should switch to highlight vars
-              !isOpen && 'hover:[--opt-bg:var(--opt-bg-h)] hover:[--opt-fg:var(--opt-fg-h)] hover:[--code:var(--code-h)] hover:[--city:var(--city-h)] hover:[--ch:var(--ch-h)]',
-              // keep shape tweak when open
-              isOpen && 'rounded-b-none focus-visible:rounded-b-md',
-              // optional: belt & suspenders to lock look while open
-              'aria-expanded:!hover:[--opt-bg:var(--opt-bg)] aria-expanded:!hover:[--opt-fg:var(--opt-fg)]',
-              classes?.button
-            )}
-            onClick={handleToggle}
-            disabled={disabled}
-            aria-haspopup="listbox"
-            aria-expanded={isOpen}
-            aria-required={required}
-            aria-label={label || 'Select an option'}
-          >
-            <span className={cx('flex-1 truncate px-2', classes?.optionContent)}>{display}</span>
-
-            {/* caret */}
-            <div
+        <div ref={selectRef} className="selectize-wrapper relative z-10 overflow-visible w-full">
+          <div className={cx('selectize-control single flex justify-center w-full', classes?.control)}>
+            {/* Button */}
+            <button
+              ref={buttonRef}
+              type="button"
+              id={id}
               className={cx(
-                'ml-2 w-0 h-0 border-l-[5px] border-r-[5px] border-l-transparent border-r-transparent transition-transform duration-200 flex-shrink-0',
-                isOpen ? 'border-b-[6px] border-b-primary' : 'border-b-[6px] border-b-primary rotate-180',
-                classes?.caret
+                baseButton,
+                'w-full relative',
+                // consume current vars
+                merged.idle, 'bg-[var(--opt-bg)] text-[var(--opt-fg)]',
+                // when CLOSED, hovering should switch to highlight vars
+                !isOpen && 'hover:[--opt-bg:var(--opt-bg-h)] hover:[--opt-fg:var(--opt-fg-h)] hover:[--code:var(--code-h)] hover:[--city:var(--city-h)] hover:[--ch:var(--ch-h)]',
+                // keep shape tweak when open
+                isOpen && 'rounded-b-none focus-visible:rounded-b-md',
+                // optional: belt & suspenders to lock look while open
+                'aria-expanded:!hover:[--opt-bg:var(--opt-bg)] aria-expanded:!hover:[--opt-fg:var(--opt-fg)]',
+                classes?.button
               )}
-            />
-          </button>
-
-          {/* Menu */}
-          {isOpen && (
-            <div
-              className={cx(
-                'selectize-dropdown absolute top-full left-0 right-0 z-[9999] bg-surface-2 text-content-2 rounded-t-0 rounded-b-md w-full overflow-visible',
-                classes?.menu
-              )}
+              onClick={handleToggle}
+              disabled={disabled}
+              aria-haspopup="listbox"
+              aria-expanded={isOpen}
+              aria-required={required}
+              aria-label={label || 'Select an option'}
             >
+              <span className={cx('flex-1 truncate px-2', classes?.optionContent)}>{display}</span>
+
+              {/* caret */}
               <div
-                className="selectize-dropdown-content overflow-y-auto overscroll-contain"
-                style={{ maxHeight: 'min(calc(2.5rem * 6), 60vh)' }}
-                role="listbox"
-                aria-label="Options"
-              >
-                {options.map((option, index) => {
-                  const isSelected = option.value === effectiveValue
-                  const isHighlighted = index === highlightedIndex
-
-                  // precedence: selected+highlighted > selected > highlighted > idle
-                  const stateClass =
-                    isSelected && isHighlighted
-                      ? merged.selectedHighlighted
-                      : isSelected
-                      ? merged.selected
-                      : isHighlighted
-                      ? merged.highlighted
-                      : merged.idle
-
-                  const content = renderOption ? renderOption(option) : option.label
-
-                  const optionClass = cx(
-                    // structure
-                    'option py-2 px-4 cursor-pointer text-base font-base font-light min-h-[44px] flex',
-                    'items-center justify-center text-center touch-manipulation',
-                    'border-content-2 first:border-t-2 last:border-b-0 last:rounded-b-md',
-                    classes?.optionBase,
-                    // consume current vars for bg/fg
-                    'bg-[var(--opt-bg)] text-[var(--opt-fg)]',
-                    // per-state variable assignments come from stateClass
-                    stateClass,
-                    getOptionClassName?.(option, { isSelected, isHighlighted, index }),
-                    'transition-all duration-400'
-                    )
-
-                  return (
-                    <div
-                      key={option.value}
-                      ref={(el: HTMLDivElement | null) => {
-                        optionsRef.current[index] = el; // no return => type is void
-                      }}
-                      className={optionClass}
-                      role="option"
-                      aria-selected={isSelected}
-                      // data- attributes let you style via Tailwind arbitrary variants or CSS
-                      data-selected={isSelected ? 'true' : 'false'}
-                      data-highlighted={isHighlighted ? 'true' : 'false'}
-                      onClick={() => handleOptionClick(option)}
-                      onMouseEnter={() => setHighlightedIndex(index)}
-                      onTouchStart={() => setHighlightedIndex(index)}
-                    >
-                      {typeof content === 'string' ? (
-                        <span className={cx('truncate', classes?.optionContent)}>{content}</span>
-                      ) : (
-                        <div className={cx('w-full', classes?.optionContent)}>{content}</div>
-                      )}
-                    </div>
-                  )
-                })}
-
-                {options.length === 0 && (
-                  <div className="py-4 px-4 text-fg text-center italic text-base min-h-[44px] flex items-center justify-center">
-                    No options available!
-                  </div>
+                className={cx(
+                  'ml-2 w-0 h-0 border-l-[5px] border-r-[5px] border-l-transparent border-r-transparent transition-transform duration-200 flex-shrink-0',
+                  isOpen ? 'border-b-[6px] border-b-primary' : 'border-b-[6px] border-b-primary rotate-180',
+                  classes?.caret
                 )}
+              />
+            </button>
+
+            {/* Menu */}
+            {isOpen && (
+              <div
+                className={cx(
+                  'selectize-dropdown absolute top-full left-0 right-0 z-[9999] bg-surface-2 text-content-2 rounded-t-0 rounded-b-md w-full overflow-visible',
+                  classes?.menu
+                )}
+              >
+                <div
+                  className="selectize-dropdown-content overflow-y-auto overscroll-contain"
+                  style={{ maxHeight: 'min(calc(2.5rem * 6), 60vh)' }}
+                  role="listbox"
+                  aria-label="Options"
+                >
+                  {options.map((option, index) => {
+                    const isSelected = option.value === effectiveValue
+                    const isHighlighted = index === highlightedIndex
+
+                    // precedence: selected+highlighted > selected > highlighted > idle
+                    const stateClass =
+                      isSelected && isHighlighted
+                        ? merged.selectedHighlighted
+                        : isSelected
+                        ? merged.selected
+                        : isHighlighted
+                        ? merged.highlighted
+                        : merged.idle
+
+                    const content = renderOption ? renderOption(option) : option.label
+
+                    const optionClass = cx(
+                      // structure
+                      'option py-2 px-4 cursor-pointer text-base font-base font-light min-h-[44px] flex',
+                      'items-center justify-center text-center touch-manipulation',
+                      'border-content-2 first:border-t-2 last:border-b-0 last:rounded-b-md',
+                      classes?.optionBase,
+                      // consume current vars for bg/fg
+                      'bg-[var(--opt-bg)] text-[var(--opt-fg)]',
+                      // per-state variable assignments come from stateClass
+                      stateClass,
+                      getOptionClassName?.(option, { isSelected, isHighlighted, index }),
+                      'transition-all duration-400'
+                      )
+
+                    return (
+                      <div
+                        key={option.value}
+                        ref={(el: HTMLDivElement | null) => {
+                          optionsRef.current[index] = el; // no return => type is void
+                        }}
+                        className={optionClass}
+                        role="option"
+                        aria-selected={isSelected}
+                        // data- attributes let you style via Tailwind arbitrary variants or CSS
+                        data-selected={isSelected ? 'true' : 'false'}
+                        data-highlighted={isHighlighted ? 'true' : 'false'}
+                        onClick={() => handleOptionClick(option)}
+                        onMouseEnter={() => setHighlightedIndex(index)}
+                        onTouchStart={() => setHighlightedIndex(index)}
+                      >
+                        {typeof content === 'string' ? (
+                          <span className={cx('truncate', classes?.optionContent)}>{content}</span>
+                        ) : (
+                          <div className={cx('w-full', classes?.optionContent)}>{content}</div>
+                        )}
+                      </div>
+                    )
+                  })}
+
+                  {options.length === 0 && (
+                    <div className="py-4 px-4 text-fg text-center italic text-base min-h-[44px] flex items-center justify-center">
+                      No options available!
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-    </label>
+    </div>
   )
 }
