@@ -1,8 +1,8 @@
 // src/main.tsx
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App'
-import './assets/index.css'
+import App from '@/App'
+import '@/styles/index.css'
 
 /**
  * Entry point:

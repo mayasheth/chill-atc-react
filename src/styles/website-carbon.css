@@ -1,0 +1,54 @@
+/* ===========================
+   Custom Website Carbon badge wrapper
+   ===========================
+
+   STRUCTURE (from the official script):
+   #wcb            → root container injected by the script
+   #wcb_g          → grams text, e.g. "0.12g of CO₂/view"
+   #wcb_a          → "Website Carbon" attribution link
+   #wcb_2          → "Cleaner than X% of pages tested" line
+
+   We wrap #wcb in our own .cb-wrapper to add a label, icon, and layout.
+*/
+
+/* ---------------------------
+   Our wrapper
+   Contains official #wcb badge
+--------------------------- */
+.cb-wrapper {
+  @apply inline-flex !items-center;
+  @apply rounded-md !border-none;
+  @apply bg-surface-2;
+}
+
+/* ---------------------------
+   Provider-injected root (official badge container)
+   We remove any default background and harmonize spacing.
+--------------------------- */
+.cb-wrapper #wcb.carbonbadge {
+  @apply !bg-transparent !border-0 inline-flex items-center;
+}
+
+/* ---------------------------
+   Grams value (main number)
+   Example text from provider: "0.12g of CO₂/view"
+--------------------------- */
+.cb-wrapper #wcb #wcb_g {
+  @apply flex;
+  @apply !font-base font-semibold text-base;
+  @apply !bg-transparent text-content-1 !border-none !px-4;
+}
+
+/* ---------------------------
+   Attribution link ("Website Carbon")
+--------------------------- */
+.cb-wrapper #wcb #wcb_a {
+  @apply !hidden;
+}
+
+/* ---------------------------
+   "Cleaner than X%" line
+--------------------------- */
+.cb-wrapper #wcb #wcb_2 {
+  @apply !hidden;
+}

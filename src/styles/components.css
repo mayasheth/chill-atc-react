@@ -1,0 +1,53 @@
+
+@layer components {
+  
+  .custom-slider  {
+    @apply appearance-none h-1.5 rounded-full cursor-pointer w-full;
+    background: linear-gradient(
+      to right,
+      var(--color-surface-3) var(--value, 0%),
+      var(--color-surface-3) var(--value, 0%)
+    );
+  }
+
+  .custom-slider:active  {
+    @apply appearance-none h-1.5 rounded-full cursor-pointer w-full;
+    background: linear-gradient(
+      to right,
+      var(--color-content-4) var(--value, 0%),
+      var(--color-surface-3) var(--value, 0%)
+    );
+  }
+
+  .custom-slider::-webkit-slider-thumb {
+    @apply appearance-none h-4 w-4 rounded-full transition-all duration-400;
+    background: var(--color-content-3);
+    border: none;
+  }
+
+  .custom-slider::-webkit-slider-thumb:hover {
+    background: var(--color-content-2);
+  }
+
+  .custom-slider::-webkit-slider-thumb:active {
+    background: var(--color-content-1);
+  }
+
+  .custom-slider::-moz-range-thumb {
+    @apply h-4 w-4 rounded-full;
+    background: var(--color-content-3);
+    border: none;
+  }
+
+  .custom-slider::-moz-range-thumb:hover {
+    @apply h-4 w-4 rounded-full;
+    background: var(--color-content-2);
+    border: none;
+  }
+
+  .custom-slider::-moz-range-thumb:hover {
+    @apply h-4 w-4 rounded-full;
+    background: var(--color-content-1);
+    border: none;
+  }
+}

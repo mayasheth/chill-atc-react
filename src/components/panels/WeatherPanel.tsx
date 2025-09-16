@@ -270,7 +270,7 @@ const WindInfo = memo(function WindInfo({
 
 
 // ---------- main card ----------
-export const WeatherMiniCard = memo(function WeatherMiniCard() {
+export const WeatherPanel = memo(function WeatherMiniCard() {
   const { atcPlaying } = useAtc()
   const streamId = useAtc((s) => s.currentStreamId) as keyof typeof RESOLVED_ATC_STREAMS | null
   const stream = streamId ? RESOLVED_ATC_STREAMS[streamId] : null
@@ -296,7 +296,7 @@ export const WeatherMiniCard = memo(function WeatherMiniCard() {
   const unitButton = (
     <button
       onClick={() => setUnits(units === 'metric' ? 'imperial' : 'metric')}
-      className="mx-2 rounded-md bg-surface-2 px-3 py-1 text-sm font-base hover:bg-surface-3 transition duration-400 focus-outline"
+      className="mx-2 rounded-md bg-surface-2 px-3 py-1 text-sm font-base hover:bg-surface-3 soft-transition focus-outline"
       aria-pressed={units === 'imperial'}
       title="Toggle units"
     >

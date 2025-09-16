@@ -188,7 +188,7 @@ export function Selector({
   const baseButton = [
     'inline-flex h-11 min-h-[44px] min-w-48 items-center justify-center rounded-md',
     'px-4 text-base font-base font-light',
-    'transition-all duration-400 focus-outline touch-manipulation select-none',
+    'soft-transition focus-outline touch-manipulation select-none',
   ].join(' ')
 
   return (
@@ -279,7 +279,7 @@ export function Selector({
                       // per-state variable assignments come from stateClass
                       stateClass,
                       getOptionClassName?.(option, { isSelected, isHighlighted, index }),
-                      'transition-all duration-400'
+                      'soft-transition'
                       )
 
                     return (

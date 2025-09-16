@@ -2,7 +2,7 @@ import { useState }    from 'react'
 import { ActionButton, LoginButton, Selector, Slider } from '@/components/ui'
 import { ControlRow, Field } from '@/components/layouts'
 
-import { SpotifyIcon, MusicNoteIcon, VolumeIcon, ReplayIcon, PlayIcon, PauseIcon, NextIcon, PreviousIcon } from '@/assets/icons/audio'
+import { SpotifyIcon, MusicNoteIcon, VolumeIcon, ReplayIcon, PlayIcon, PauseIcon, NextIcon, PreviousIcon } from '@/assets/icons/other'
 
 import { startSpotifyLogin } from '@/api/spotifyAuth'
 import { formatTime } from '@/lib/format'

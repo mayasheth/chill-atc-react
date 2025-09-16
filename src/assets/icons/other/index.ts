@@ -7,7 +7,11 @@ export { default as PreviousIcon } from './skipPrevious.svg?react'
 export { default as ReplayIcon } from './replay.svg?react'
 export { default as VolumeIcon } from './volumeUp.svg?react'
 export { default as MusicNoteIcon } from './musicNote.svg?react'
-export { default as RadarIcon } from './radar.svg?react'
 
 // brands
 export { default as SpotifyIcon } from './spotify.svg?react'
+
+// other
+export { default as RadarIcon } from './radar.svg?react'
+export { default as FootprintIcon } from './footprint.svg?react'
+
