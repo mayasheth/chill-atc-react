@@ -1,13 +1,9 @@
 // src/pages/Colophon.tsx
 import { Link } from "react-router-dom";
 import { Card, PanelHeader } from '@/components/layouts'
-import { InlineLink, ColorSwatchesGrid, CarbonBadge } from "@/components/ui";
-import { FootprintIcon } from "@/assets/icons/other";
+import { InlineLink, ColorSwatchesGrid, HomeCarbonBadge } from "@/components/ui";
 
 export default function Colophon() {
-  const sha = import.meta.env.VITE_GIT_SHA ?? "dev";
-  const built = import.meta.env.VITE_BUILD_TIME ?? "";
-  const version = import.meta.env.VITE_APP_VERSION ?? "0.1.0";
 
   const COLOR_TOKENS = [
     { name: "surface-0", varName: "--color-surface-0" },
@@ -131,11 +127,7 @@ export default function Colophon() {
 const EnvCard = (
   <Card variant="row" className="mt-6 px-8 sm:px-16">
     <PanelHeader title="environmental impact" />
-    <div className="mt-4 inline-flex gap-2 items-center">
-      <FootprintIcon className="text-content-2 h-8 w-8 -rotate-30"/>
-      <CarbonBadge dark className=""/>
-    </div>
-    <p className="text-content-1 mt-2"> via <InlineLink href="https://www.websitecarbon.com/"> Website Carbon</InlineLink> </p>
+    <HomeCarbonBadge />
   </Card>
 );
 
