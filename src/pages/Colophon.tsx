@@ -26,7 +26,7 @@ export default function Colophon() {
     <Card variant="row" className="px-8 sm:px-12">
       <PanelHeader title="welcome" />
       <p className="text-content-1 text-center">
-          chill atc is a personal project inspired by a fleeting website i encountered a few months back. 
+          chill atc is a personal project inspired by a fleeting website i encountered in fall of 2024.
           when the site disappeared, i began the deep dive into recreating the unique hyperfocus soundtrack of live atc + music.
           the project has grown into a playground for me to learn and explore aspects of web design.
           it is built from the ground up by me with coding guidance from several LLMs.
@@ -67,7 +67,7 @@ export default function Colophon() {
         with some help from the <InlineLink href="https://www.tints.dev/palette/v1:Y29yYWx8MjA0Yjg5fDgwMHxwfDB8MHwwfDEwMHxh">tints.dev</InlineLink> palette generator:
       </p>
       <ColorSwatchesGrid colors={COLOR_TOKENS} />
-      <p className="text-sm text-content-2 text-center">click to copy OKLCH</p>
+      <p className="text-sm text-content-2 text-center italic">click to copy OKLCH</p>
 
     </Card>
   )
