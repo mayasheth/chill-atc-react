@@ -2,6 +2,6 @@
   "ywg_center":   { "locationKey": "winnipeg", "airportCode": "YWG", "channels": ["Center"],                      "embedUrl": "https://d.liveatc.net/cywg2_misc2" },
   "yow_all":      { "locationKey": "ottawa",   "airportCode": "YOW", "channels": ["Ground","Tower","Approach"],   "embedUrl": "https://d.liveatc.net/cyow3" },
   "ord_approach": { "locationKey": "chicago",  "airportCode": "ORD", "channels": ["Approach"],                    "embedUrl": "http://d.liveatc.net/kord1n2_app_133625" },
-  "sfo_tower":    { "locationKey": "sf",       "airportCode": "SFO", "channels": ["Tower"],                       "embedUrl": "http://d.liveatc.net/ksfo_twr" }
-
+  "sfo_tower":    { "locationKey": "sf",       "airportCode": "SFO", "channels": ["Tower"],                       "embedUrl": "http://d.liveatc.net/ksfo_twr" },
+  "ogg_center":   { "locationKey": "maui",     "airportCode": "OGG", "channels": ["Center"],                      "embedUrl": "http://d.liveatc.net/phog2_hcf" }
 }
