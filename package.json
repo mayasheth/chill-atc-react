@@ -6,6 +6,7 @@
     "dev:app": "vite",
     "dev:api": "vercel dev",
     "dev": "concurrently -k -n APP,API -c cyan,magenta \"npm:dev:app\" \"npm:dev:api\"",
+    "prebuild": "VITE_GIT_SHA=$(git rev-parse --short HEAD) VITE_BUILD_TIME=$(node -e \"console.log(new Date().toISOString())\") VITE_APP_VERSION=$(node -p \"require('./package.json').version\") vite build --emptyOutDir=false && exit 0",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",

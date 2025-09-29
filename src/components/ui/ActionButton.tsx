@@ -1,5 +1,5 @@
 import React from 'react'
-import { SpotifyIcon } from '@/assets/icons/audio'
+import { SpotifyIcon } from '@/assets/icons/other'
 type Variant = 'spotify' | 'icon'
 
 type ActionButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -32,9 +32,7 @@ export function ActionButton({
       // Layout & size: ensure ≥44px target
       'inline-flex items-center justify-center gap-2 rounded-md h-11 min-size-mobile',
       // Interaction & feedback
-      'transition-all duration-400',
-      // Touch friendliness
-      'select-none touch-manipulation',
+      'soft-transition select-none touch-manipulation',
       // Disabled behavior
       'disabled:text-surface-3 disabled:cursor-not-allowed disabled:pointer-events-none',
       'disabled:pointer-events-none disabled:active:scale-100',

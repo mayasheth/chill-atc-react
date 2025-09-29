@@ -2,7 +2,7 @@ import { useState }    from 'react'
 import { ActionButton, LoginButton, Selector, Slider } from '@/components/ui'
 import { ControlRow, Field } from '@/components/layouts'
 
-import { SpotifyIcon, MusicNoteIcon, VolumeIcon, ReplayIcon, PlayIcon, PauseIcon, NextIcon, PreviousIcon } from '@/assets/icons/audio'
+import { SpotifyIcon, MusicNoteIcon, VolumeIcon, ReplayIcon, PlayIcon, PauseIcon, NextIcon, PreviousIcon } from '@/assets/icons/other'
 
 import { startSpotifyLogin } from '@/api/spotifyAuth'
 import { formatTime } from '@/lib/format'
@@ -17,8 +17,8 @@ export function LoginPanel() {
   const loginMessage = (
     <div id="login-message" className="my-4 inline-flex items-center gap-2">
       <SpotifyIcon className="h-5 w-5 text-spotify-green" aria-hidden="true"/>
-      <p className="text-spotify-green font-semibold"> logged in as: </p>
-      <p> {userEmail} </p>
+      <span className="text-spotify-green font-semibold font-base text-sm sm:text-base"> logged in as: </span>
+      <span className="text-content-2 font-base font-light text-sm sm:text-base"> {userEmail} </span>
     </div>
   )
 

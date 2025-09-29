@@ -1,0 +1,35 @@
+@layer base {
+  p {
+    font-family: var(--font-base);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-light);
+  }
+
+  h1 {
+    font-family: var(--font-header);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+    @apply tracking-wide;
+    @apply text-center;
+    @apply text-content-0;
+  }
+
+  h2 {
+    font-family: var(--font-header);
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-semibold);
+    @apply tracking-wide;
+    @apply text-center;
+    @apply text-content-0;
+  }
+
+  h3 {
+    font-family: var(--font-header);
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    @apply tracking-wide;
+    @apply text-content-0;
+    @apply italic;
+    @apply text-center;
+  }
+}

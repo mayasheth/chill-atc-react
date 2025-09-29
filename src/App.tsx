@@ -1,6 +1,8 @@
 // src/App.tsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import RootLayout from "@/components/layouts/RootLayout";
 import Home from '@/pages/Home'
+import Colophon from '@/pages/Colophon'
 import SpotifyCallback from '@/pages/SpotifyCallback' 
 import { SessionTracker } from '@/lib/airtime/SessionTracker'
 import { SpotifyPlayerProvider } from '@/lib/spotify/SpotifyPlayerProvider'
@@ -22,8 +24,11 @@ export default function App() {
         <SessionTracker />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/callback" element={<SpotifyCallback />} />
+               <Route element={<RootLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/callback" element={<SpotifyCallback />} />
+                <Route path="/colophon" element={<Colophon />} />
+               </Route>
             </Routes>
           </BrowserRouter>
       </SpotifyPlayerProvider>

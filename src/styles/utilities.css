@@ -1,0 +1,17 @@
+@layer utilities {
+  .focus-outline {
+    @apply focus-visible:outline-[3px] focus-visible:outline-content-3 focus-visible:ring-0;
+  }
+
+  .focus-outline-rounded {
+    @apply focus-visible:ring-[2px] focus-visible:ring-content-3 focus-visible:ring-offset-0 focus-visible:outline-none rounded-md;
+  }
+
+  .min-size-mobile {
+    @apply min-w-[44px] min-h-[44px];
+  }
+
+  .soft-transition {
+    @apply transition-all duration-400
+  }
+}

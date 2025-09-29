@@ -7,7 +7,7 @@ import { useLocalClock } from '@/hooks/useLocalClock'
 import { useFormattedTemps } from '@/hooks/useFormattedTemps'
 import { useWeatherStore } from '@/store/weather'
 import { codeToShortLabel, codeToIconKey } from '@/lib/weather/codes'
-import { kphToMph, mToFt, degToCardinal, windSpeedToBeaufort } from '@/lib/weather/convertUnits'
+import { kphToMph, mToFt, windSpeedToBeaufort } from '@/lib/weather/convertUnits'
 import { WeatherIcon, preloadIcons } from '@/lib/weather/iconLoader'
 import { SunriseIcon, SunsetIcon, LocationIcon, ElevationIcon, ThermostatIcon } from '@/assets/icons/weather'
 import { WindIcon } from '@/lib/weather/windIcon'
@@ -270,7 +270,7 @@ const WindInfo = memo(function WindInfo({
 
 
 // ---------- main card ----------
-export const WeatherMiniCard = memo(function WeatherMiniCard() {
+export const WeatherPanel = memo(function WeatherMiniCard() {
   const { atcPlaying } = useAtc()
   const streamId = useAtc((s) => s.currentStreamId) as keyof typeof RESOLVED_ATC_STREAMS | null
   const stream = streamId ? RESOLVED_ATC_STREAMS[streamId] : null
@@ -296,7 +296,7 @@ export const WeatherMiniCard = memo(function WeatherMiniCard() {
   const unitButton = (
     <button
       onClick={() => setUnits(units === 'metric' ? 'imperial' : 'metric')}
-      className="mx-2 rounded-md bg-surface-2 px-3 py-1 text-sm font-base hover:bg-surface-3 transition duration-400 focus-outline"
+      className="mx-2 rounded-md bg-surface-2 px-3 py-1 text-sm font-base hover:bg-surface-3 soft-transition focus-outline"
       aria-pressed={units === 'imperial'}
       title="Toggle units"
     >
@@ -307,7 +307,7 @@ export const WeatherMiniCard = memo(function WeatherMiniCard() {
   const TransitionClasses = [
     'overflow-hidden transition-all duration-1000 ease-in-out',
     atcPlaying
-      ? 'opacity-100 translate-y-0 max-h-[520px] pointer-events-auto mt-12'
+      ? 'opacity-100 translate-y-0 max-h-[640px] pointer-events-auto mt-12'
       : 'opacity-0 translate-y-4 max-h-0 pointer-events-none',
     'flex flex-col items-center'
   ].join(' ')

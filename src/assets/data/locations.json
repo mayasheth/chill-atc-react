@@ -2,5 +2,6 @@
   "winnipeg": { "name": "Winnipeg", "region": "Manitoba", "country": "Canada" },
   "ottawa":   { "name": "Ottawa", "region": "Ontario", "country": "Canada" },
   "chicago":  { "name": "Chicago", "region": "Illinois", "country": "USA" },
-  "sf":       { "name": "San Francisco", "region": "California", "country": "USA"}
+  "sf":       { "name": "San Francisco", "region": "California", "country": "USA"},
+  "maui":     { "name": "Kahului", "region": "Hawaii", "country": "USA"}
 }

@@ -1,11 +1,13 @@
+import { useEffect } from "react";
+import { measureAndStoreHomeBytes } from "@/lib/measureBytes";
 import { Card, PanelHeader } from '@/components/layouts'
-import { LoginPanel, PlaybackPanel, NowPlayingPanel } from '@/components/panels/MusicPanels'
-import { AtcStreamingPanel } from '@/components/panels/AtcPanels'
-import { WeatherMiniCard } from '@/components/panels/WeatherPanels'
-import { StatsPanel } from '@/components/panels/AirtimePanels'
-
+import { LoginPanel, PlaybackPanel, NowPlayingPanel, AtcStreamingPanel, WeatherPanel, WaveformPanel, StatsPanel } from '@/components/panels'
 
 export default function Home() {
+  useEffect(() => {
+    measureAndStoreHomeBytes();
+  }, []);
+
   return (
     <div className="flex min-h-dvh flex-col items-center bg-surface-0">
       <h1 className="mt-6 text-center text-content-0">chill atc</h1>
@@ -20,11 +22,12 @@ export default function Home() {
       <Card className="mt-6">
         <PanelHeader title="atc" />
         <AtcStreamingPanel />
-        <WeatherMiniCard />
+        <WeatherPanel />
       </Card>
 
       <Card className="mt-6">
         <PanelHeader title="airtime" />
+        <WaveformPanel />
         <StatsPanel />
       </Card>
     </div>

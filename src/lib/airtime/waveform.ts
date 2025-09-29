@@ -1,4 +1,4 @@
-// src/lib/waveform.ts
+// src/lib/airtime/waveform.ts
 
 export type WaveParams = {
   baseFrequency: number;
@@ -17,30 +17,34 @@ export type WaveParams = {
 // to a computed rgb/rgba string and optionally force an alpha.
 // Works across modern browsers and color spaces.
 export function getCssVar(name: string, alpha?: number): string {
-  const val = getComputedStyle(document.documentElement)
-    .getPropertyValue(name)
-    .trim();
+  const root = document.documentElement;
+  const raw = getComputedStyle(root).getPropertyValue(name).trim();
 
-  // Fallback to plain value if var is empty
-  const colorInput = val || name;
+  // If empty, ask CSS to resolve the var() itself (supports fallbacks in your CSS)
+  const colorExpr =
+    raw || (name.startsWith("--") ? `var(${name})` : name);
 
-  // Use the CSS engine to resolve into sRGB
   const probe = document.createElement("span");
-  probe.style.color = colorInput;            // can be oklch()/color-mix()/etc.
-  document.body.appendChild(probe);
-  const computed = getComputedStyle(probe).color; // typically "rgb(r, g, b)" or "rgba(r, g, b, a)"
-  document.body.removeChild(probe);
+  probe.style.color = colorExpr;
+  root.appendChild(probe);
+  const computed = getComputedStyle(probe).color; // "rgb(r g b / a)" or "rgb(r, g, b)" etc.
+  root.removeChild(probe);
 
   if (alpha == null) return computed;
 
-  // Force alpha
-  const m = computed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([0-9.]+))?\)/);
-  if (!m) return computed; // unexpected format; just return what we have
-  const r = parseInt(m[1], 10);
-  const g = parseInt(m[2], 10);
-  const b = parseInt(m[3], 10);
+  // Parse both comma and space-with-slash syntaxes
+  const m =
+    computed.match(
+      /^rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s\/]+([0-9.]+))?\s*\)$/i
+    );
+  if (!m) return computed;
+
+  const r = Number(m[1]);
+  const g = Number(m[2]);
+  const b = Number(m[3]);
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
+
 
 
 /** Fresh randomized waveform parameters for a given canvas height. */

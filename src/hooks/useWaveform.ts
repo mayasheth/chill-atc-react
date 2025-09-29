@@ -9,36 +9,27 @@ function useLatest<T>(value: T) {
 }
 
 export type UseWaveformProps = {
-  // playing flags and volumes (0..1)
   isSpotifyPlaying: boolean;
   isAtcPlaying: boolean;
-  spotifyVolume: number;
-  atcVolume: number;
-
-  // identifiers that change when the selection changes
+  spotifyVolume: number; // 0..100
+  atcVolume: number;     // 0..100
   playlistId?: string | number | null;
   atcStreamId?: string | number | null;
-
-  // CSS var names (hex values) to pull colors from
   colors?: {
-    cardBg?: string;       // default: --brand-card_background
-    spotifyDark?: string;  // default: --brand-spotify_green
-    spotifyLight?: string; // default: --brand-light_green
-    atcDark?: string;      // default: --brand-tertiary
-    atcLight?: string;     // default: --brand-secondary
+    cardBg?: string;
+    spotifyDark?: string;
+    spotifyMed?: string;
+    spotifyLight?: string;
+    atcDark?: string;
+    atcMed?: string;
+    atcLight?: string;
   };
-
-  lineWidth?: number; // stroke width
-  fadeWidth?: number; // side fade width
+  lineWidth?: number;
+  fadeWidth?: number;
 };
 
-/**
- * useWaveform — returns a canvasRef; draws Spotify + ATC animated waveforms.
- * - DPR-aware
- * - Resizes with ResizeObserver
- * - Smooth transitions when play state changes
- * - Resets parameters when playlist/stream IDs change
- */
+type Teardown = { disconnect(): void };
+
 export function useWaveform({
   isSpotifyPlaying,
   isAtcPlaying,
@@ -52,54 +43,62 @@ export function useWaveform({
 }: UseWaveformProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  // latest reactive values (avoid re-creating the animation loop)
+  // latest reactive values without re-binding raf
   const isSpotifyPlayingRef = useLatest(isSpotifyPlaying);
   const isAtcPlayingRef = useLatest(isAtcPlaying);
   const spotifyVolRef = useLatest(spotifyVolume);
   const atcVolRef = useLatest(atcVolume);
 
+  // use your --color-* names
   const colorVars = {
-    cardBg: colors?.cardBg ?? "--brand-card_background",
-    spotifyDark: colors?.spotifyDark ?? "--brand-spotify_green",
-    spotifyLight: colors?.spotifyLight ?? "--brand-light_green",
-    atcDark: colors?.atcDark ?? "--brand-tertiary",
-    atcLight: colors?.atcLight ?? "--brand-secondary",
+    cardBg: colors?.cardBg ?? "--color-ocean-900",
+    spotifyDark: colors?.spotifyDark ?? "--color-spotify-green",
+    spotifyMed: colors?.spotifyMed ?? "--color-green-400",
+    spotifyLight: colors?.spotifyLight ?? "--color-green-200",
+    atcDark: colors?.atcDark ?? "--color-ocean-600",
+    atcMed: colors?.atcMed ?? "--color-ocean-500",
+    atcLight: colors?.atcLight ?? "--color-ocean-200",
   };
 
-  // store current param sets so they persist across frames
   const atcParamsRef = useRef<WaveParams | null>(null);
   const spotifyParamsRef = useRef<WaveParams | null>(null);
 
-  // regenerate params when the underlying source changes
+  // regenerate params when sources change
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const h = Math.max(1, canvas.clientHeight || 1);
+    const el = canvasRef.current;
+    if (!el) return;
+    const h = Math.max(1, el.clientHeight || 1);
     atcParamsRef.current = generateWaveParams(h);
   }, [atcStreamId]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const h = Math.max(1, canvas.clientHeight || 1);
+    const el = canvasRef.current;
+    if (!el) return;
+    const h = Math.max(1, el.clientHeight || 1);
     spotifyParamsRef.current = generateWaveParams(h);
   }, [playlistId]);
 
   useEffect(() => {
+    if (typeof window === "undefined" || typeof document === "undefined") return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+
+    const ctxMaybe = canvas.getContext("2d") as CanvasRenderingContext2D | null;
+    if (!ctxMaybe) return;
+    const ctx: CanvasRenderingContext2D = ctxMaybe; // locked non-null for this closure
 
     let width = 1;
     let height = 1;
-    let rafId = 0;
-    let ro: ResizeObserver | null = null;
+    let rafId: number | null = null;
+    let handle: Teardown | null = null;
 
     atcParamsRef.current ??= generateWaveParams(canvas.clientHeight || 120);
     spotifyParamsRef.current ??= generateWaveParams(canvas.clientHeight || 120);
 
     function sizeToCanvasCSS() {
+      if (!canvas) return;
+      canvas.style.width = "100%";
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
       width = Math.max(1, Math.floor(rect.width));
@@ -107,48 +106,55 @@ export function useWaveform({
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      // update amplitudes to current height
-      if (atcParamsRef.current) atcParamsRef.current.baseAmplitude = height / 4;
-      if (spotifyParamsRef.current) spotifyParamsRef.current.baseAmplitude = height / 4;
+
+      const baseAmp = height / 6;
+      if (atcParamsRef.current) atcParamsRef.current.baseAmplitude = baseAmp;
+      if (spotifyParamsRef.current) spotifyParamsRef.current.baseAmplitude = baseAmp;
     }
 
-    function createStrokeGradient(darkVar: string, lightVar: string) {
+    function createStrokeGradient(darkVar: string, medVar: string, lightVar: string): CanvasGradient {
       const g = ctx.createLinearGradient(0, height, 0, 0);
-      g.addColorStop(0, getCssVar(lightVar));
-      g.addColorStop(0.25, getCssVar(darkVar));
+      g.addColorStop(0.05, getCssVar(lightVar));
+      g.addColorStop(0.25, getCssVar(medVar));
       g.addColorStop(0.5, getCssVar(darkVar));
-      g.addColorStop(0.75, getCssVar(darkVar));
-      g.addColorStop(1, getCssVar(lightVar));
+      g.addColorStop(0.75, getCssVar(medVar));
+      g.addColorStop(0.95, getCssVar(lightVar));
       return g;
     }
 
-    function drawSideFade() {
-      const fw = fadeWidth;
-      // left
-      const left = ctx.createLinearGradient(0, 0, fw, 0);
-      left.addColorStop(0, getCssVar(colorVars.cardBg, 1));
-      left.addColorStop(1, getCssVar(colorVars.cardBg, 0));
-      ctx.fillStyle = left;
-      ctx.fillRect(0, 0, fw, height);
-      // right
-      const right = ctx.createLinearGradient(width - fw, 0, width, 0);
-      right.addColorStop(0, getCssVar(colorVars.cardBg, 0));
-      right.addColorStop(1, getCssVar(colorVars.cardBg, 1));
-      ctx.fillStyle = right;
-      ctx.fillRect(width - fw, 0, fw, height);
+    // Punch out transparency at the sides using an alpha mask
+    function applySideFadeMask() {
+      const fw = Math.min(fadeWidth, Math.floor(width / 2));
+      if (fw <= 0) return;
+
+      const a = fw / Math.max(1, width); // normalized fade width
+
+      // Build a mask that is 0 at edges → 1 in the center → 0 at the other edge.
+      const mask = ctx.createLinearGradient(0, 0, width, 0);
+      mask.addColorStop(0, "rgba(0,0,0,0)");
+      mask.addColorStop(a, "rgba(0,0,0,1)");
+      mask.addColorStop(1 - a, "rgba(0,0,0,1)");
+      mask.addColorStop(1, "rgba(0,0,0,0)");
+
+      ctx.save();
+      ctx.globalCompositeOperation = "destination-in"; // keep only where mask alpha > 0
+      ctx.fillStyle = mask;
+      ctx.fillRect(0, 0, width, height);
+      ctx.restore();
     }
+
 
     function drawWave(
       params: WaveParams,
       t: number,
       darkVar: string,
+      medVar: string,
       lightVar: string,
       isPlaying: boolean,
       vol: number
     ) {
       const centerY = height / 2;
 
-      // smooth animation targets
       params._ampTarget = isPlaying ? 1 : 0.2;
       params._freqTarget = isPlaying ? 1 : 0.3;
       params._ampCurrent ??= params._ampTarget;
@@ -158,10 +164,14 @@ export function useWaveform({
       params._ampCurrent += (params._ampTarget - params._ampCurrent) * smoothing;
       params._freqCurrent += (params._freqTarget - params._freqCurrent) * smoothing;
 
-      const amp = params.baseAmplitude * params._ampCurrent * clamp01(vol);
-      const jamp = params.jitterAmplitude * params._ampCurrent * clamp01(vol);
-      const freq = params.baseFrequency * params._freqCurrent;
-      const jfreq = params.jitterFrequency * params._freqCurrent;
+      const vn = vol > 1 ? vol / 100 : vol;
+      const v = clamp01(vn);
+      const vEff = Math.pow(v, 0.85); // slightly more range at lower volumes
+
+      const amp  = params.baseAmplitude  * params._ampCurrent  * vEff;
+      const jamp = params.jitterAmplitude * params._ampCurrent * vEff;
+      const freq = params.baseFrequency  * params._freqCurrent;
+      const jfreq= params.jitterFrequency * params._freqCurrent;
 
       ctx.beginPath();
       ctx.moveTo(0, centerY);
@@ -172,7 +182,8 @@ export function useWaveform({
         ctx.lineTo(x, centerY + baseY + jitterY);
       }
 
-      ctx.strokeStyle = createStrokeGradient(darkVar, lightVar);
+      ctx.globalAlpha = 0.8;
+      ctx.strokeStyle = createStrokeGradient(darkVar, medVar, lightVar);
       ctx.lineWidth = lineWidth;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
@@ -182,55 +193,59 @@ export function useWaveform({
     function frame() {
       const t = performance.now() / 1000;
 
-      // clear
-      ctx.fillStyle = getCssVar(colorVars.cardBg, 0.3);
+      ctx.fillStyle = getCssVar(colorVars.cardBg, 0);
       ctx.fillRect(0, 0, width, height);
 
-      // ATC wave
       if (atcParamsRef.current) {
         drawWave(
           atcParamsRef.current,
           t,
           colorVars.atcDark,
+          colorVars.atcMed,
           colorVars.atcLight,
           !!isAtcPlayingRef.current,
           atcVolRef.current ?? 0
         );
       }
-      // Spotify wave
+
       if (spotifyParamsRef.current) {
         drawWave(
           spotifyParamsRef.current,
           t,
           colorVars.spotifyDark,
+          colorVars.spotifyMed,
           colorVars.spotifyLight,
           !!isSpotifyPlayingRef.current,
           spotifyVolRef.current ?? 0
         );
       }
 
-      drawSideFade();
+      applySideFadeMask();
       rafId = requestAnimationFrame(frame);
     }
 
-    // init & observe
+    // init + observers
     sizeToCanvasCSS();
     rafId = requestAnimationFrame(frame);
 
-    if ("ResizeObserver" in window) {
-      ro = new ResizeObserver(sizeToCanvasCSS);
-      ro.observe(canvas);
+    const onResize = () => sizeToCanvasCSS();
+    const ResizeObs =
+      (window as any).ResizeObserver as
+        | (new (cb: ResizeObserverCallback) => ResizeObserver)
+        | undefined;
+
+    if (ResizeObs) {
+      const observer = new ResizeObs(() => sizeToCanvasCSS());
+      observer.observe(canvas);
+      handle = { disconnect: () => observer.disconnect() };
     } else {
-      const onResize = () => sizeToCanvasCSS();
       window.addEventListener("resize", onResize);
-      // minimal shim for cleanup symmetry
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ro = { disconnect: () => window.removeEventListener("resize", onResize) } as any;
+      handle = { disconnect: () => window.removeEventListener("resize", onResize) };
     }
 
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      ro?.disconnect();
+      if (rafId != null) cancelAnimationFrame(rafId);
+      handle?.disconnect();
     };
   }, [
     colorVars.cardBg,

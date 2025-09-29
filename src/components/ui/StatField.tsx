@@ -29,10 +29,10 @@ export function StatField({
     : 'sm:justify-items-center'
 
   return (
-    <div className={cx('grid justify-items-center', justify, className)}>
+    <div className={cx('grid justify-items-center gap-0', justify, className)}>
       {/* fixed-height label → all labels align */}
-      <div className={cx("pb-2", widthClass)}>
-        <span className={cx('text-base font-header font-semibold text-content-3', labelClass)}> {label} </span>
+      <div className={cx("sm:pb-2", widthClass)}>
+        <span className={cx('text-base font-base font-semibold text-content-3', labelClass)}> {label} </span>
       </div>
 
       {/* value  */}

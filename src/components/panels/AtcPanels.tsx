@@ -1,11 +1,9 @@
 // src/components/panels/AtcPanel.tsx
 
 import { useMemo } from 'react'
-import { ActionButton, Selector, Slider, type Option } from '@/components/ui'
+import { ActionButton, Selector, Slider, InlineLink, type Option } from '@/components/ui'
 import { ControlRow, Field } from '@/components/layouts'
-
-import { VolumeIcon, PlayIcon, PauseIcon, StopIcon, RadarIcon} from '@/assets/icons/audio'
-
+import { VolumeIcon, PlayIcon, PauseIcon, StopIcon, RadarIcon} from '@/assets/icons/other'
 import { useAtc } from '@/store/atc'
 import { type AtcStreamId, type Channel, RESOLVED_ATC_STREAMS, formatChannels } from '@/lib/atc/atcStreams'
 
@@ -25,9 +23,9 @@ function AtcLabel({
         <span className="opt-code font-header text-base font-bold text-[var(--code)]">
           {code.toLowerCase()}
         </span>
-        <span className="opt-city font-base text-base font-light text-[var(--city)]">
+        {<span className="opt-city font-base text-base font-light text-[var(--city)]">
           {city.toLowerCase()}
-        </span>
+        </span>}
       </span>
 
       {ch && (
@@ -175,14 +173,7 @@ export function AtcStreamingPanel() {
       className="text-content-0 text-base font-base font-light text-center my-6"
     >
       curated from{' '}
-      <a
-        href="https://www.liveatc.net/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-base font-semibold text-base text-content-3 hover:text-content-2 transition-all duration-400"
-      >
-        LiveATC.Net
-      </a>
+      <InlineLink href="https://www.liveatc.net/">LiveATC.Net</InlineLink>
     </p>
   )
 

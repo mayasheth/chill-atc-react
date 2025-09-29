@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { AIRPORTS, type AirportCode } from '@/lib/atc/atcStreams'
 import { fetchForecast } from '@/lib/weather/openmeteo'
-import type { WeatherForecast, WeatherNow, WeatherDaily } from '@/lib/weather/types'
+import type { WeatherForecast } from '@/lib/weather/types'
 
 type Coords = { lat: number; lon: number }
 type Input = AirportCode | string | Coords | null
