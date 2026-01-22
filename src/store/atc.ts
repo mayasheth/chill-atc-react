@@ -49,22 +49,42 @@ export const useAtc = create<AtcState>((set, get) => ({
       el.volume = Math.max(0, Math.min(1, get().volume / 100))
 
       // sync events → store
-      el.addEventListener("play", () => set({ atcPlaying: true }))
-      el.addEventListener("pause", () => set({ atcPlaying: false }))
-      el.addEventListener("ended", () => set({ atcPlaying: false }))
-      el.addEventListener("error", () => set({ atcPlaying: false }))
+      el.addEventListener("play", () => {
+        console.log("[ATC] play event fired")
+        set({ atcPlaying: true })
+      })
+      el.addEventListener("pause", () => {
+        console.log("[ATC] pause event fired")
+        set({ atcPlaying: false })
+      })
+      el.addEventListener("ended", () => {
+        console.log("[ATC] ended event fired")
+        set({ atcPlaying: false })
+      })
+      el.addEventListener("error", (e) => {
+        console.log("[ATC] error event fired", el.error, e)
+        set({ atcPlaying: false })
+      })
     }
   },
 
   // Centralized way to start a stream and remember the loaded context
   playStream: async (streamId: AtcStreamId) => {
     const audio = get().audio
+    console.log("[ATC] playStream called", { streamId, hasAudio: !!audio })
     if (!audio) return
 
     // set streaming url
-    audio.src = ATC_STREAMS[streamId].embedUrl
+    const url = ATC_STREAMS[streamId].embedUrl
+    console.log("[ATC] setting src to", url)
+    audio.src = url
     audio.load()
-    try { await audio.play() } catch { /* user gesture may be required */ }
+    try {
+      await audio.play()
+      console.log("[ATC] play() resolved successfully")
+    } catch (err) {
+      console.log("[ATC] play() rejected", err)
+    }
 
     set({ currentStreamId: streamId })
   },
@@ -89,6 +109,7 @@ export const useAtc = create<AtcState>((set, get) => ({
 
   playPause: async () => {
     const { audio, atcPlaying: playing, selectedStreamId, currentStreamId, playStream } = get()
+    console.log("[ATC] playPause called", { hasAudio: !!audio, playing, selectedStreamId, currentStreamId })
     if (!audio) return
 
     // cancel any pending auto-switch when user explicitly toggles
@@ -99,24 +120,28 @@ export const useAtc = create<AtcState>((set, get) => ({
     }
 
     if (playing) {
+      console.log("[ATC] pausing...")
       await audio.pause()
       return
     }
 
     // if a different stream is selected than what's loaded, switch to it
     if (selectedStreamId && selectedStreamId !== currentStreamId) {
+      console.log("[ATC] switching to different stream")
       await playStream(selectedStreamId)
       return
     }
 
     // if nothing loaded yet but we have a selection, start it
     if (!currentStreamId && selectedStreamId) {
+      console.log("[ATC] starting fresh stream")
       await playStream(selectedStreamId)
       return
     }
 
     // otherwise resume current context if any
     if (currentStreamId) {
+      console.log("[ATC] resuming current stream")
       await audio.play()
     }
   },
