@@ -75,9 +75,10 @@ export const useAtc = create<AtcState>((set, get) => ({
     console.log("[ATC] playStream called", { streamId, hasAudio: !!audio })
     if (!audio) return
 
-    // set streaming url
+    // set streaming url with no referrer to bypass hotlink protection
     const url = ATC_STREAMS[streamId].embedUrl
     console.log("[ATC] setting src to", url)
+    audio.setAttribute("referrerpolicy", "no-referrer")
     audio.src = url
     audio.load()
     try {
