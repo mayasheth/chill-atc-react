@@ -6,7 +6,10 @@ export function AtcAudioProvider({ children }: { children: React.ReactNode }) {
   const setAudio = useAtc(s => s.setAudio)
   const ref = useRef<HTMLAudioElement | null>(null)
 
+  console.log("[ATC] AtcAudioProvider render, ref.current:", ref.current)
+
   useEffect(() => {
+    console.log("[ATC] AtcAudioProvider useEffect, ref.current:", ref.current)
     if (ref.current) setAudio(ref.current)
     return () => setAudio(null)
   }, [setAudio])
