@@ -43,6 +43,7 @@ export const useAtc = create<AtcState>((set, get) => ({
   _sliderDebounce: undefined,
 
   setAudio: (el) => {
+    console.log("[ATC] setAudio called with:", el)
     set({ audio: el })
     if (el) {
       // initial volume
