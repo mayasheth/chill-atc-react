@@ -75,11 +75,11 @@ export const useAtc = create<AtcState>((set, get) => ({
     console.log("[ATC] playStream called", { streamId, hasAudio: !!audio })
     if (!audio) return
 
-    // set streaming url with no referrer to bypass hotlink protection
-    const url = ATC_STREAMS[streamId].embedUrl
-    console.log("[ATC] setting src to", url)
-    audio.setAttribute("referrerpolicy", "no-referrer")
-    audio.src = url
+    // Proxy through our API to bypass LiveATC's referrer-based hotlink protection
+    const originalUrl = ATC_STREAMS[streamId].embedUrl
+    const proxyUrl = `/api/atcProxy?url=${encodeURIComponent(originalUrl)}`
+    console.log("[ATC] setting src to", proxyUrl, "(proxying", originalUrl, ")")
+    audio.src = proxyUrl
     audio.load()
     try {
       await audio.play()

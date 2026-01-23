@@ -16,7 +16,7 @@ export function AtcAudioProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <audio ref={ref} preload="none" referrerPolicy="no-referrer" /> {/* hidden; controlled via store */}
+      <audio ref={ref} preload="none" /> {/* hidden; controlled via store */}
       {children}
     </>
   )
